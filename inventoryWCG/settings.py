@@ -82,5 +82,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-TEMPLATE_CONTEXT_PROCESSORS =('themes.context_processors.themes',
-                                'django.contrib.auth.context_processors.auth' )
+#TEMPLATE_CONTEXT_PROCESSORS =('django.contrib.auth.context_processors.auth' )
