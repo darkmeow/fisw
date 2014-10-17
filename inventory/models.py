@@ -5,12 +5,16 @@ from django.contrib.auth.models import User
 class Administrator(models.Model):
 	'''Model for the inventory administrator. '''
 	user = models.OneToOneField(User) 
+	def __unicode__(self):
+		return self.user.username
 	
 class Location(models.Model):
 	'''Model for the location '''
 	administrator = models.ForeignKey(Administrator)
 	name = models.CharField(max_length=100)
 	location = models.CharField(max_length=100)
+	def __unicode__(self):
+		return self.name
 	
 class Item(models.Model):
 	'''Model for the item's inventory '''
@@ -19,12 +23,16 @@ class Item(models.Model):
 	description = models.CharField(max_length=100)
 	purchase_date = models.DateTimeField()
 	count = models.IntegerField(default=1)
+	def __unicode__(self):
+		return self.name
 	
 class Client(models.Model):
 	'''Model for the client of the inventory. '''
 	user = models.OneToOneField(User)
 	rut = models.CharField(max_length=15)
-	loans = models.ManyToManyField(Item, through='Loan')
+	loans = models.ManyToManyField(Item, through='Loan', blank=True)
+	def __unicode__(self):
+		return self.user.username
 
 class Project(models.Model):
 	'''Model for the WCG Projects. '''
@@ -35,6 +43,8 @@ class Project(models.Model):
 	description = models.TextField()
 	start_date = models.DateTimeField('start date')
 	is_active = models.BooleanField(default=True)
+	def __unicode__(self):
+		return self.name
 
 	
 class Membership(models.Model):
@@ -44,7 +54,9 @@ class Membership(models.Model):
 	client = models.ForeignKey(Client)
 	project = models.ForeignKey(Project)
 	date_joined = models.DateField()
-	
+	def __unicode__(self):
+		return "%s en %s".format(self.client, self.project)
+
 class Instrument(Item):
 	'''Model for the Instruments '''
 	pass
@@ -68,4 +80,6 @@ class Loan(models.Model):
 	loan_date = models.DateTimeField(auto_now = True)
 	return_date = models.DateTimeField()
 	is_active = models.BooleanField(default=True)
+	def __unicode__(self):
+		return "%s-%s-%s".format(self.client, self.item, self.loan_date)
 
