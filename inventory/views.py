@@ -16,7 +16,8 @@ def items(request):
 def location(request):
 	html = "<html><body>PROBANDDO</body></html>"
 	return HttpResponse(html)
-	
+
+@login_required
 def lista_items(request):
 	items = Item.objects.all()
 	return render_to_response('lista_items.html',{'items':items}, context_instance=RequestContext(request))

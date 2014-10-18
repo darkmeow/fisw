@@ -23,7 +23,7 @@ class Item(models.Model):
 	name = models.CharField(max_length=100)
 	description = models.CharField(max_length=100)
 	purchase_date = models.DateTimeField()
-	count = models.IntegerField(default=1)
+	stock = models.IntegerField(default=1)
 	def __unicode__(self):
 		return "{0}".format(self.name)
 
