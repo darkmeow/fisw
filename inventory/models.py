@@ -11,7 +11,9 @@ class Location(models.Model):
 	administrator = models.ForeignKey(Administrator)
 	name = models.CharField(max_length=100)
 	location = models.CharField(max_length=100)
-	
+	def __unicode__(self):
+		return "{0}".format(self.name)
+
 class Item(models.Model):
 	'''Model for the item's inventory '''
 	location = models.ForeignKey(Location)
@@ -19,12 +21,16 @@ class Item(models.Model):
 	description = models.CharField(max_length=100)
 	purchase_date = models.DateTimeField()
 	count = models.IntegerField(default=1)
+	def __unicode__(self):
+		return "{0}".format(self.name)
 	
 class Client(models.Model):
 	'''Model for the client of the inventory. '''
 	user = models.OneToOneField(User)
 	rut = models.CharField(max_length=15)
 	loans = models.ManyToManyField(Item, through='Loan')
+	def __unicode__(self):
+		return "{0}".format(self.user)
 
 class Project(models.Model):
 	'''Model for the WCG Projects. '''
@@ -35,6 +41,8 @@ class Project(models.Model):
 	description = models.TextField()
 	start_date = models.DateTimeField('start date')
 	is_active = models.BooleanField(default=True)
+	def __unicode__(self):
+		return "{0}".format(self.name)
 
 	
 class Membership(models.Model):

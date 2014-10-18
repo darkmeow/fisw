@@ -22,10 +22,13 @@ SECRET_KEY = '-lv6i9h!&m!4r_85%_%2y7fz)l9@ws%*x6_dotsvxl*%r*!2%$'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-TEMPLATE_DEBUG = True
+#TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
+TEMPLATE_DIRS = (
+   '../templates',
+)
 
 # Application definition
 
@@ -37,6 +40,9 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'inventory',
+    'bootstrap3',
+    'django_admin_bootstrapped.bootstrap3',
+    'django_admin_bootstrapped',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -84,3 +90,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 #TEMPLATE_CONTEXT_PROCESSORS =('django.contrib.auth.context_processors.auth' )
+BOOTSTRAP3 = {
+'set_required': False,
+'error_css_class': 'bootstrap3-error',
+'required_css_class': 'bootstrap3-required',
+'javascript_in_head': True,
+}
