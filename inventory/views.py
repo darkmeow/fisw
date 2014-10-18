@@ -22,7 +22,7 @@ def lista_items(request):
 	return render_to_response('lista_items.html',{'items':items}, context_instance=RequestContext(request))
 	
 def index(request):
-	return render_to_response('index.html',context_instance=RequestContext(request))
+	return render_to_response('index.html', context_instance=RequestContext(request))
 	
 def item(request, id_item):
 	dato = get_object_or_404(Item, pk=id_item)

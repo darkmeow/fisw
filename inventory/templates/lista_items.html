@@ -1,11 +1,7 @@
 {% extends 'base.html' %}
-{% block titulo %} Recetas registradas {% endblock %}
+{% block titulo %} Lista Items {% endblock %}
 
-{% block css %}
-  <style>
-	img { width:100px; }
-  </style>
-{% endblock %}
+
 
 
 {% block encabezado %}
@@ -16,12 +12,12 @@
 <a href="../item">Agregar un Item</a>
 <ul>
 	{% for dato in datos %}
-	<li>
-		<a href='{% url inventory.views.detalle_item dato.id %}'>{{dato.titulo}}</a>
-		<img src='{{MEDIA_URL}}{{dato.imagen}}'>
-	</li>
+		<li>
+			<a href='{% url inventory.views.detalle_item dato.id %}'>{{dato.titulo}}</a>
+			<img src='{{MEDIA_URL}}{{dato.imagen}}'>
+		</li>
 	{% empty %}
-	<li>Aún no hay recetas registradas</li>
+		<li>Aún no hay items registradas</li>
 	{% endfor %}
 </ul>
 {% endblock %}
