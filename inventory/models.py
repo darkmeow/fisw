@@ -5,6 +5,8 @@ from django.contrib.auth.models import User
 class Administrator(models.Model):
 	'''Model for the inventory administrator. '''
 	user = models.OneToOneField(User) 
+	def __unicode__(self):
+		return self.user.username
 	
 class Location(models.Model):
 	'''Model for the location '''
@@ -12,8 +14,13 @@ class Location(models.Model):
 	name = models.CharField(max_length=100)
 	location = models.CharField(max_length=100)
 	def __unicode__(self):
+<<<<<<< HEAD
 		return "{0}".format(self.name)
 
+=======
+		return self.name
+	
+>>>>>>> 86e5b201daaef7535935ca5e514d9460c47afa4f
 class Item(models.Model):
 	'''Model for the item's inventory '''
 	location = models.ForeignKey(Location)
@@ -22,15 +29,25 @@ class Item(models.Model):
 	purchase_date = models.DateTimeField()
 	count = models.IntegerField(default=1)
 	def __unicode__(self):
+<<<<<<< HEAD
 		return "{0}".format(self.name)
+=======
+		return self.name
+>>>>>>> 86e5b201daaef7535935ca5e514d9460c47afa4f
 	
 class Client(models.Model):
 	'''Model for the client of the inventory. '''
 	user = models.OneToOneField(User)
 	rut = models.CharField(max_length=15)
+<<<<<<< HEAD
 	loans = models.ManyToManyField(Item, through='Loan')
 	def __unicode__(self):
 		return "{0}".format(self.user)
+=======
+	loans = models.ManyToManyField(Item, through='Loan', blank=True)
+	def __unicode__(self):
+		return self.user.username
+>>>>>>> 86e5b201daaef7535935ca5e514d9460c47afa4f
 
 class Project(models.Model):
 	'''Model for the WCG Projects. '''
@@ -42,7 +59,11 @@ class Project(models.Model):
 	start_date = models.DateTimeField('start date')
 	is_active = models.BooleanField(default=True)
 	def __unicode__(self):
+<<<<<<< HEAD
 		return "{0}".format(self.name)
+=======
+		return self.name
+>>>>>>> 86e5b201daaef7535935ca5e514d9460c47afa4f
 
 	
 class Membership(models.Model):
@@ -52,7 +73,9 @@ class Membership(models.Model):
 	client = models.ForeignKey(Client)
 	project = models.ForeignKey(Project)
 	date_joined = models.DateField()
-	
+	def __unicode__(self):
+		return "%s en %s".format(self.client, self.project)
+
 class Instrument(Item):
 	'''Model for the Instruments '''
 	pass
@@ -76,4 +99,6 @@ class Loan(models.Model):
 	loan_date = models.DateTimeField(auto_now = True)
 	return_date = models.DateTimeField()
 	is_active = models.BooleanField(default=True)
+	def __unicode__(self):
+		return "%s-%s-%s".format(self.client, self.item, self.loan_date)
 
