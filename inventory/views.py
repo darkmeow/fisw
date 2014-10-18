@@ -1,5 +1,5 @@
-#from django.shortcuts import render
-# -*- coding: utf-8 -*-
+# -*- encoding: utf-8 -*-
+from __future__ import unicode_literals
 from inventory.models import Item
 from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect
@@ -13,8 +13,14 @@ from django.contrib.auth.decorators import login_required
 def items(request):
 	html = "<html><body>PROBANDDO</body></html>"
 	return HttpResponse(html)
+def location(request):
+	html = "<html><body>PROBANDDO</body></html>"
+	return HttpResponse(html)
 	
 def lista_items(request):
 	items = Item.objects.all()
 	return render_to_response('lista_items.html',{'items':items}, context_instance=RequestContext(request))
+	
+def index(request):
+	return render_to_response('index.html',context_instance=RequestContext(request))
 	

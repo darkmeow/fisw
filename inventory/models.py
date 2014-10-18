@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -6,7 +7,7 @@ class Administrator(models.Model):
 	'''Model for the inventory administrator. '''
 	user = models.OneToOneField(User) 
 	def __unicode__(self):
-		return self.user.username
+		return u"{0} | {1} {2}".format(self.user, self.user.first_name, self.user.last_name)
 	
 class Location(models.Model):
 	'''Model for the location '''
@@ -14,13 +15,8 @@ class Location(models.Model):
 	name = models.CharField(max_length=100)
 	location = models.CharField(max_length=100)
 	def __unicode__(self):
-<<<<<<< HEAD
 		return "{0}".format(self.name)
 
-=======
-		return self.name
-	
->>>>>>> 86e5b201daaef7535935ca5e514d9460c47afa4f
 class Item(models.Model):
 	'''Model for the item's inventory '''
 	location = models.ForeignKey(Location)
@@ -29,25 +25,18 @@ class Item(models.Model):
 	purchase_date = models.DateTimeField()
 	count = models.IntegerField(default=1)
 	def __unicode__(self):
-<<<<<<< HEAD
 		return "{0}".format(self.name)
-=======
-		return self.name
->>>>>>> 86e5b201daaef7535935ca5e514d9460c47afa4f
+
 	
 class Client(models.Model):
 	'''Model for the client of the inventory. '''
 	user = models.OneToOneField(User)
 	rut = models.CharField(max_length=15)
-<<<<<<< HEAD
-	loans = models.ManyToManyField(Item, through='Loan')
-	def __unicode__(self):
-		return "{0}".format(self.user)
-=======
 	loans = models.ManyToManyField(Item, through='Loan', blank=True)
 	def __unicode__(self):
-		return self.user.username
->>>>>>> 86e5b201daaef7535935ca5e514d9460c47afa4f
+		return "{0} | {1} {2}".format(self.user, self.user.first_name, self.user.last_name)
+
+
 
 class Project(models.Model):
 	'''Model for the WCG Projects. '''
@@ -59,11 +48,8 @@ class Project(models.Model):
 	start_date = models.DateTimeField('start date')
 	is_active = models.BooleanField(default=True)
 	def __unicode__(self):
-<<<<<<< HEAD
-		return "{0}".format(self.name)
-=======
-		return self.name
->>>>>>> 86e5b201daaef7535935ca5e514d9460c47afa4f
+		return "{0} - {1}".format(self.name, self.brief)
+
 
 	
 class Membership(models.Model):
@@ -100,5 +86,5 @@ class Loan(models.Model):
 	return_date = models.DateTimeField()
 	is_active = models.BooleanField(default=True)
 	def __unicode__(self):
-		return "%s-%s-%s".format(self.client, self.item, self.loan_date)
+		return "{0} | {1} | {2}".format(self.client, self.item, self.loan_date)
 

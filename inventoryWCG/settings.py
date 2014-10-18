@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+MEDIA_ROOT = os.path.join(BASE_DIR,'images')
 
 
 # Quick-start development settings - unsuitable for production
@@ -33,6 +34,9 @@ TEMPLATE_DIRS = (
 # Application definition
 
 INSTALLED_APPS = (
+    'django_admin_bootstrapped.bootstrap3',
+    'django_admin_bootstrapped',
+    'bootstrap3',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,9 +44,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'inventory',
-    'bootstrap3',
-    'django_admin_bootstrapped.bootstrap3',
-    'django_admin_bootstrapped',
+    
+    
 )
 
 MIDDLEWARE_CLASSES = (
@@ -96,3 +99,5 @@ BOOTSTRAP3 = {
 'required_css_class': 'bootstrap3-required',
 'javascript_in_head': True,
 }
+
+DEFAULT_CHARSET = 'utf-8'
