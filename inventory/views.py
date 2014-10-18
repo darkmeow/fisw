@@ -24,3 +24,9 @@ def lista_items(request):
 def index(request):
 	return render_to_response('index.html',context_instance=RequestContext(request))
 	
+def item(request, id_item):
+	dato = get_object_or_404(Item, pk=id_item)
+	comentarios = Comentario.objects.filter(item=dato)
+	return render_to_response('item.html',{'item':dato,'comentarios':comentarios}, context_instance=RequestContext(request))
+
+	
