@@ -1,7 +1,9 @@
 # -*- encoding: utf-8 -*-
 from __future__ import unicode_literals
 from inventory.models import Item
-from inventory.models import Administrator, Client
+from inventory.models import Administrator, Client, Location
+from inventory.forms.item_form import ItemForm
+from inventory.forms.location_form import LocationForm
 from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
@@ -9,11 +11,13 @@ from django.template import RequestContext
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
+from django.forms.models import modelform_factory
 
 
 def items(request):
 	html = "<html><body>PROBANDDO</body></html>"
 	return HttpResponse(html)
+	
 def location(request):
 	html = "<html><body>PROBANDDO</body></html>"
 	return HttpResponse(html)
@@ -53,14 +57,27 @@ def dashboard(request):
 
 def index(request):
 	if request.user.is_authenticated():
+		#Logged in
 		if request.user.is_superuser:
+			#As a super user
 			return HttpResponseRedirect('/admin')
+		#As a system user
 		return HttpResponseRedirect('/dashboard')
 	return render_to_response('index.html', context_instance=RequestContext(request))
 	
 def item(request, id_item):
-	dato = get_object_or_404(Item, pk=id_item)
-	comentarios = Comentario.objects.filter(item=dato)
-	return render_to_response('item.html',{'item':dato,'comentarios':comentarios}, context_instance=RequestContext(request))
+	item = get_object_or_404(Item, pk=id_item)
+	return render_to_response('item.html',{'item':item}, context_instance=RequestContext(request))
 
-	
+def test_form(request):
+	LocationFormSet = modelform_factory(Item, form=ItemForm)
+	if request.method == 'POST':
+	    formset = LocationFormSet(request.POST)
+	    if formset.is_valid():
+	        formset.save()
+	        # do something.
+	else:
+	    formset = LocationFormSet()
+	return render_to_response("test_form.html", {
+	    "form": formset,
+	}, context_instance=RequestContext(request))

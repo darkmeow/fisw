@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block titulo %} Prueba de Forms {% endblock %}
+
+{% block encabezado %}
+  <h1>Prueba de forms</h1>
+{% endblock %}
+
+{% block contenido %}
+
+<form action="/test_form/" method="post">
+    {% csrf_token %}
+    {{ form.as_ul }}
+    <input type="submit" value="Submit" />
+</form>
+
+{% endblock %}

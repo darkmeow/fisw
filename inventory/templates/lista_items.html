@@ -8,10 +8,11 @@
 {% block contenido %}
 <a href="../item">Agregar un Item</a>
 <ul>
-	{% for dato in datos %}
+	{% for item in items %}
 		<li>
-			<a href='{% url inventory.views.detalle_item dato.id %}'>{{dato.titulo}}</a>
-			<img src='{{MEDIA_URL}}{{dato.imagen}}'>
+			<a href="{% url 'detalle_item' item.id %}">{{item.name}}</a>
+			<img src='{{MEDIA_URL}}{{item.imagen}}'>
+
 		</li>
 	{% empty %}
 		<li>Aún no hay items registradas</li>

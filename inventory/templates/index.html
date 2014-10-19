@@ -45,9 +45,9 @@
           <div class="account-wall">
             <img src="{{STATIC_URL}}/img/logoinventory.png" alt=>
             <form class="form-signin" method="POST" action="/wcg_login/">{% csrf_token %}
-							
             	<input name="username" type="text" class="form-control" placeholder="Email" required autofocus>
             	<input name="password" type="password" class="form-control" placeholder="Password" required>
+
             	<button class="btn btn-lg btn-primary btn-block" type="submit">
             	Sign in</button>
             	<label class="checkbox pull-left">

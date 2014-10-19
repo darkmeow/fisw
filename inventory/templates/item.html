@@ -8,11 +8,6 @@
         <h2>Location</h2>
         <p>{{item.location}}</p>
     </div>
-        	
-	name = models.CharField(max_length=100)
-	description = models.CharField(max_length=100)
-	purchase_date = models.DateTimeField()
-	count = models.IntegerField(default=1)
     
      <div id='desc'>
         <h2>Descripcion</h2>
@@ -24,28 +19,7 @@
     </div>
      <div id='stock'>
         <h2>Stock</h2>
-        <p>{{item.coun}}</p>
+        <p>{{item.count}}</p>
     </div>
         
-        <div id='preparacion'>
-        
-        
-        
-        <h2>Preparación</h2>
-        <p>{{receta.preparacion}}</p>
-        </div>
-        <div id='referencia'>
-        <img src='{{MEDIA_URL}}{{receta.imagen}}'>
-        </div>
-        <div id='comentarios'>
-        <h2>Comentarios</h2>
-        {% for item in comentarios %}
-        <p>{{item.texto}}</p>
-        {% empty %}
-        <p>Sin comentarios registrados</p>
-        {% endfor %}
-        </div>
-        <footer>
-<p>Registrado {{ receta.tiempo_registro|date:'SHORT_DATETIME_FORMAT' }} por {{receta.usuario}}</p>
-</footer>
 {% endblock %}
