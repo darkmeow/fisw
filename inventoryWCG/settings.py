@@ -103,9 +103,9 @@ BOOTSTRAP3 = {
 DEFAULT_CHARSET = 'utf-8'
 
 from django.core.urlresolvers import reverse_lazy
-LOGIN_URL = reverse_lazy('login')
-LOGIN_REDIRECT_URL = reverse_lazy('lista_items')
-LOGOUT_URL = reverse_lazy('logout')
+LOGIN_URL = ('/')
+#LOGIN_REDIRECT_URL = reverse_lazy('lista_items')
+LOGOUT_URL = ('/')
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
