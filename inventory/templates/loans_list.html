@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block titulo %} Préstamos {% endblock %}
+
+{% block encabezado %}
+  <h1>Préstamos</h1>
+{% endblock %}
+
+{% block contenido %}
+
+<div class="container">
+<div class="row">
+<div class="col-md-3">
+{% if isAdmin %}
+			
+		
+    <p class="lead">
+
+        Préstamos
+
+    </p>
+    <div class="list-group">
+        <a class="list-group-item active" href="../register_loan">
+            Generar un Préstamo
+
+        </a>
+        <a class="list-group-item" href="#">
+
+            Category 2
+
+        </a>
+        <a class="list-group-item" href="#">
+
+            Category 3
+
+        </a>
+    </div>
+    {% endif %}
+
+</div>
+
+		<div class="col-md-9">
+		<ul><h1>Lista de Préstamos</h1>
+			{% for loan in loans %}
+				<li>
+					<p>Item Prestado: <a href="{% url 'loan_details' loan.id %}">{{loan.item}}</a><img src='{{MEDIA_URL}}{{loan.imagen}}'></p>
+				</li>
+			{% empty %}
+				<li>Aún no hay préstamos registradas</li>
+			{% endfor %}
+		</ul>
+		</div>
+		<a href="{{TEMPLATE_DIRS}}/dashboard">Volver</a>
+		</div>
+		
+</div>
+	
+{% endblock %}

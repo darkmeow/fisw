@@ -4,22 +4,15 @@
     <h1>{{item.name|title}}</h1>
 {% endblock %}
 {% block contenido %}
-    <div id='ingredientes'>
-        <h2>Location</h2>
-        <p>{{item.location}}</p>
+<div class=container>
+    <div><h2>Lugar donde se encuentra</h2><p>{{item.location}}</p>
     </div>
-    
-     <div id='desc'>
-        <h2>Descripcion</h2>
-        <p>{{item.description}}</p>
+    <div><h2>Descripción</h2> <p>{{item.description}}</p>
     </div>
-     <div id='pdate'>
-        <h2>Fecha de Compra</h2>
-        <p>{{item.purchase_date}}</p>
+    <div><h2>Fecha de Compra</h2><p>{{item.purchase_date}}</p>
     </div>
-     <div id='stock'>
-        <h2>Stock</h2>
-        <p>{{item.count}}</p>
+    <div><h2>Stock</h2><p>{{item.count}}</p>
     </div>
-        
+    <a href="{{TEMPLATE_DIRS}}/list_items">Volver</a>
+</div>
 {% endblock %}

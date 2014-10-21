@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block titulo %} Agregar Item {% endblock %}
+
+{% block encabezado %}
+  <h1>Agregar Item</h1>
+{% endblock %}
+
+{% block contenido %}
+  
+<div class="container">
+<div class="row">
+<div class="col-md-3">
+<h1>Agregar Item</h1>
+<form action="/register_item/" method="post">
+    {% csrf_token %}
+    {{ form.as_ul }}
+    <input type="submit" value="Submit" />
+</form>
+</div>
+</div>
+</div>
+{% endblock %}

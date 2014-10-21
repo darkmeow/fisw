@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block titulo %} Agregar Préstamo {% endblock %}
+
+{% block encabezado %}
+  <h1>Agregar Préstamo</h1>
+{% endblock %}
+
+{% block contenido %}
+<div class="container">
+<div class="row">
+<div class="col-md-3">
+<h1>Generar Préstamo</h1>
+<form action="/register_loan/" method="post">
+    {% csrf_token %}
+    {{ form.as_ul }}
+    <input type="submit" value="Submit" />
+</form>
+</div>
+</div>
+</div>
+{% endblock %}

@@ -51,6 +51,7 @@ body {
   margin-top: 10px;
 }
 
+
 /* Padding for spacing */
 .inner {
   padding: 10px;
@@ -158,4 +159,19 @@ body {
   .cover-container {
     width: 700px;
   }
+}
+
+
+.cover-container-2 {
+  margin-top: 10px;
+  margin-right: auto;
+  margin-left: auto;
+  max-height: 500px;
+  max-width: 60%;
+  
+}
+ 
+.carousel-inner > .item > img { 
+  margin: 0 auto; 
+  
 }

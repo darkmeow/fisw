@@ -1,9 +1,10 @@
 # -*- encoding: utf-8 -*-
 from __future__ import unicode_literals
 from inventory.models import Item
-from inventory.models import Administrator, Client, Location
+from inventory.models import Administrator, Client, Location, Loan
 from inventory.forms.item_form import ItemForm
 from inventory.forms.location_form import LocationForm
+from inventory.forms.loan_form import LoanForm
 from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
@@ -14,18 +15,10 @@ from django.contrib.auth.decorators import login_required
 from django.forms.models import modelform_factory
 
 
-def items(request):
-	html = "<html><body>PROBANDDO</body></html>"
-	return HttpResponse(html)
-	
 def location(request):
 	html = "<html><body>PROBANDDO</body></html>"
 	return HttpResponse(html)
 
-@login_required
-def lista_items(request):
-	items = Item.objects.all()
-	return render_to_response('lista_items.html',{'items':items}, context_instance=RequestContext(request))
 
 def wcg_login(request):
 	username = request.POST['username']
@@ -64,20 +57,66 @@ def index(request):
 		#As a system user
 		return HttpResponseRedirect('/dashboard')
 	return render_to_response('index.html', context_instance=RequestContext(request))
-	
+
+
 def item(request, id_item):
 	item = get_object_or_404(Item, pk=id_item)
-	return render_to_response('item.html',{'item':item}, context_instance=RequestContext(request))
+	return render_to_response('item.html',{'item':item,}, context_instance=RequestContext(request))
+	
+def loan(request, id_loan):
+	
+	loan = get_object_or_404(Loan, pk=id_loan)
+	return render_to_response('loan.html',{'loan':loan,}, context_instance=RequestContext(request))
 
-def test_form(request):
-	LocationFormSet = modelform_factory(Item, form=ItemForm)
-	if request.method == 'POST':
-	    formset = LocationFormSet(request.POST)
-	    if formset.is_valid():
-	        formset.save()
-	        # do something.
+
+######################################################################################################
+@login_required
+def list_items(request):
+	items = Item.objects.all()
+	return render_to_response('items_list.html',{'items':items,'isAdmin':Administrator.objects.filter( user = request.user).exists(),}, context_instance=RequestContext(request))
+
+@login_required
+def list_loans(request):
+	if Administrator.objects.filter( user = request.user).exists():
+		loans = Loan.objects.filter(is_active = True)
+	elif Client.objects.filter(user = request.user).exists():
+		loans = Loan.objects.filter(client = Client.objects.filter(user = request.user)).filter(is_active = True)
 	else:
-	    formset = LocationFormSet()
-	return render_to_response("test_form.html", {
-	    "form": formset,
-	}, context_instance=RequestContext(request))
+		return HttpResponseRedirect('/login')
+#	loans = Loan.objects.all()
+	return render_to_response('loans_list.html',{'loans':loans,'isAdmin':Administrator.objects.filter( user = request.user).exists()}, context_instance=RequestContext(request))
+	
+######################################################################################################
+
+@login_required
+def register_item(request):
+	if Administrator.objects.filter( user = request.user).exists():
+		ItemFormSet = modelform_factory(Item, form=ItemForm)
+		if request.method == 'POST':
+		    formset = ItemFormSet(request.POST)
+		    if formset.is_valid():
+		        formset.save()
+		        return HttpResponseRedirect('/list_items')
+		else:
+		    formset = ItemFormSet()
+		return render_to_response("items_form.html", {"form": formset,}, context_instance=RequestContext(request))
+	else:
+		return HttpResponseRedirect('/dashboard')
+
+@login_required	
+def register_loan(request):
+	if Administrator.objects.filter( user = request.user).exists():
+		LoanFormSet = modelform_factory(Loan, form=LoanForm)
+		if request.method == 'POST':
+		    formset = LoanFormSet(request.POST)
+		    if formset.is_valid():
+		        formset.save()
+		        return HttpResponseRedirect('/list_loans')
+		        # do something.
+		else:
+		    formset = LoanFormSet()
+		return render_to_response("loans_form.html", {
+		    "form": formset,
+		}, context_instance=RequestContext(request))
+	else:
+		return HttpResponseRedirect('/dashboard')

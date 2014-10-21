@@ -83,7 +83,7 @@ class Loan(models.Model):
 	client = models.ForeignKey(Client)
 	item = models.ForeignKey(Item)
 	loan_date = models.DateTimeField(auto_now = True)
-	return_date = models.DateTimeField()
+	return_date = models.DateTimeField(blank=True, null=True)
 	is_active = models.BooleanField(default=True)
 	def __unicode__(self):
 		return "{0} | {1} | {2}".format(self.client, self.item, self.loan_date)
