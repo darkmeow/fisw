@@ -1,4 +1,5 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
+ 
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
@@ -15,7 +16,7 @@ class Location(models.Model):
 	name = models.CharField(max_length=100)
 	location = models.CharField(max_length=100)
 	def __unicode__(self):
-		return "{0}".format(self.name)
+		return u"{0}".format(self.name)
 
 class Item(models.Model):
 	'''Model for the item's inventory '''
@@ -25,7 +26,7 @@ class Item(models.Model):
 	purchase_date = models.DateTimeField()
 	count = models.IntegerField(default=1)
 	def __unicode__(self):
-		return "{0}".format(self.name)
+		return u"{0}".format(self.name)
 
 	
 class Client(models.Model):
@@ -34,7 +35,7 @@ class Client(models.Model):
 	rut = models.CharField(max_length=15)
 	loans = models.ManyToManyField(Item, through='Loan', blank=True)
 	def __unicode__(self):
-		return "{0} | {1} {2}".format(self.user, self.user.first_name, self.user.last_name)
+		return u"{0} | {1} {2}".format(self.user, self.user.first_name, self.user.last_name)
 
 
 
@@ -48,7 +49,7 @@ class Project(models.Model):
 	start_date = models.DateTimeField('start date')
 	is_active = models.BooleanField(default=True)
 	def __unicode__(self):
-		return "{0} - {1}".format(self.name, self.brief)
+		return u"{0} - {1}".format(self.name, self.brief)
 
 
 	
@@ -60,7 +61,7 @@ class Membership(models.Model):
 	project = models.ForeignKey(Project)
 	date_joined = models.DateField()
 	def __unicode__(self):
-		return "%s en %s".format(self.client, self.project)
+		return u"%s en %s".format(self.client, self.project)
 
 class Instrument(Item):
 	'''Model for the Instruments '''
@@ -93,5 +94,5 @@ class Loan(models.Model):
 	def isActive(self):
 		return self.is_active
 	def __unicode__(self):
-		return "{0} | {1} | {2}".format(self.client, self.item, self.loan_date)
+		return u"{0} | {1} | {2}".format(self.client, self.item, self.loan_date)
 

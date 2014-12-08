@@ -9,14 +9,14 @@
   <!-- <link rel='shortcut icon' href='{{STATIC_URL}}img/icono.png'> -->
   <!--{% block style_css %}{% endblock %} -->
   <!--  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
-  <script src='{{STATIC_URL}}js/jquery-1.7.2.min.js'></script>
+  <script src='{{STATIC_URL}}js/jquery-1.11.1.min.js'></script>
   {% bootstrap_css %}
   {% bootstrap_javascript %}
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+  <!--<script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>-->
 
  <!-- se usa para los tab --> 
  <!-- <script src='{{STATIC_URL}}js/demo.js'></script> -->
@@ -50,7 +50,7 @@ $(document).ready(function(){
       </button>
       <a class="navbar-brand" rel="home" href="#" title="WCG">
         <img style="max-width:50%; margin-top: -10px;"
-             src="{{STATIC_URL}}/img/logo.png"></a>
+             src="{{STATIC_URL}}img/logo.png"></a>
     </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
