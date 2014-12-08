@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 from django.db import models
 from django.contrib.auth.models import User
-
+from django.utils import timezone
 
 class Administrator(models.Model):
 	'''Model for the inventory administrator. '''
@@ -85,6 +85,13 @@ class Loan(models.Model):
 	loan_date = models.DateTimeField(auto_now = True)
 	return_date = models.DateTimeField(blank=True, null=True)
 	is_active = models.BooleanField(default=True)
+	def cancel(self):
+		self.is_active = False
+		return_date = timezone.now()
+		self.save()
+		return
+	def isActive(self):
+		return self.is_active
 	def __unicode__(self):
 		return "{0} | {1} | {2}".format(self.client, self.item, self.loan_date)
 

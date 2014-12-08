@@ -13,6 +13,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.forms.models import modelform_factory
+from django.core import serializers
 
 
 def location(request):
@@ -120,3 +121,31 @@ def register_loan(request):
 		}, context_instance=RequestContext(request))
 	else:
 		return HttpResponseRedirect('/dashboard')
+		
+@login_required
+def return_loan(request, id_loan):
+	if Administrator.objects.filter( user = request.user).exists():
+		loan = get_object_or_404(Loan, pk=id_loan)
+		loan.cancel()
+		return HttpResponseRedirect('/list_loans')
+	else:
+		return HttpResponseRedirect('/dashboard')
+		
+@login_required
+def loan_cancel_list(request):
+	if Administrator.objects.filter( user = request.user).exists():
+		clients = Client.objects.all()
+		return render_to_response("loans_cancel_list.html",{"clients":clients},context_instance=RequestContext(request))
+	else:
+		return HttpResponseRedirect('/dashboard')
+
+@login_required
+def loan_cancel_list_ajax(request):
+	if Administrator.objects.filter( user = request.user).exists():
+		if request.method == 'GET':
+			id_client = request.GET['id']
+			loans = Loan.objects.filter( client = Client.objects.get(id_client))
+			data = serializers.serialize('json', loans, fields=('item'))
+			return HttpResponse(data, mimetype='application/json')
+	return False
+		

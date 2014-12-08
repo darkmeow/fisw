@@ -28,6 +28,7 @@ urlpatterns = patterns('',
     url(r'^$', 'inventory.views.index'),
     url(r'^register_item/$', 'inventory.views.register_item'),
     url(r'^register_loan/$', 'inventory.views.register_loan'),
-    
-    #url(r'^test_form/', 'inventory.views.test_form'),
+    url(r'^return_loan/(?P<id_loan>[0-9]+)/$', 'inventory.views.return_loan'),
+    url(r'^loan_cancel_list/$', 'inventory.views.loan_cancel_list'),
+    url(r'^loan_cancel_list_ajax', 'inventory.views.loan_cancel_list_ajax'),
 )
