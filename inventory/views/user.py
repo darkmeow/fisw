@@ -26,7 +26,6 @@ def wcg_login(request):
 	
 @login_required
 def dashboard(request):
-
 	if Administrator.objects.filter( user = request.user).exists():
 		print Administrator.objects.filter( user = request.user)
 		return render_to_response('dashboard_admin.html', context_instance=RequestContext(request))
@@ -45,3 +44,11 @@ def index(request):
 		return HttpResponseRedirect('/dashboard')
 	return render_to_response('index.html', context_instance=RequestContext(request))
 
+def isAdmin(u):
+	''' Identifies if the user is an administrator.
+		Use this with user_passes_test decorator
+	'''
+	if u.is_authenticated():
+		return Administrator.objects.filter( user = u).exists()
+	else:
+		return False
