@@ -1,4 +1,5 @@
-# -*- encoding: utf-8 -*-from __future__ import unicode_literals
+# -*- encoding: utf-8 -*-
+from __future__ import unicode_literals
 from inventory.models import Administrator, Client, Loan
 from inventory.forms.loan_form import LoanForm
 from django.http import HttpResponse, HttpResponseRedirect
@@ -55,6 +56,6 @@ def loan_cancel_list(request):
 def loan_cancel_list_ajax(request):
 	if request.method == 'GET':
 		id_client = request.GET['id']
-		loans = Loan.objects.filter( client = Client.objects.get(id_client))
+		loans = Loan.objects.filter( client = Client.objects.get(id=id_client))
 		data = serializers.serialize('json', loans, fields=('item'))
-		return HttpResponse(data, mimetype='application/json')
+		return HttpResponse(data, content_type='application/json')
