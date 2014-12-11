@@ -316,7 +316,7 @@ d3.json("/userdata.csv", function(error, flights) {
   };
 
   function flightList(div) {
-    var flightsByDate = nestByDate.entries(date.top(10));
+    var flightsByDate = nestByDate.entries(date.top(31));
 
     div.each(function() {
       var date = d3.select(this).selectAll(".date")
@@ -331,7 +331,7 @@ d3.json("/userdata.csv", function(error, flights) {
       date.exit().remove();
 
       var flight = date.order().selectAll(".flight")
-          .data(function(d) { return d.values; }, function(d) { return d.index; });
+          .data(function(d) { return d.values; }, function(d) { return d.pk; });
 
       var flightEnter = flight.enter().append("div")
           .attr("class", "flight");
