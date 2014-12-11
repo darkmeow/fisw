@@ -1,0 +1,52 @@
+{% extends 'mail/message_body.html' %}
+{% block contenido %}
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">Destacados</div>
+  <div class="panel-body">
+<div class=container>
+    <h2>Últimos Préstamos</h2>
+    <table class="table">
+        <tr>
+            <th>Item</th>
+            <th>Cliente</th>
+            <th>Fecha Pedido</th>
+            <th>Fecha Retorno</th>
+        </tr>
+        {% for loan in loans %}
+        <tr>
+            <td>{{ loan.item.name }}</td>
+            <td>{{ loan.client.user.first_name}} {{ loan.client.user.last_name }}</td>
+            <td>{{ loan.loan_date }}</td>
+            <td>{{ loan.return_date }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <h2>Préstamos Pendientes</h2>
+    <table class="table">
+        <tr>
+            <th>Item</th>
+            <th>Cliente</th>
+            <th>Fecha Pedido</th>
+            <th>Fecha Retorno</th>
+        </tr>
+        {% for loan in active_loans %}
+            {% if loan.is_active %}
+            <tr>
+                <td>{{ loan.item.name }}</td>
+                <td>{{ loan.client.user.first_name}} {{ loan.client.user.last_name }}</td>
+                <td>{{ loan.loan_date }}</td>
+                <td>{{ loan.return_date }}</td>
+            </tr>
+            {% endif %}
+        {% empty %}
+            <tr>
+                <td>No existen Préstamos Pendientes</td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+</div>  
+</div>  
+</div>  
+{% endblock %}

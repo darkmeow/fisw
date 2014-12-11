@@ -17,18 +17,13 @@
 
     </p>
     <div class="list-group">
-        <a class="list-group-item active" href="../register_item">
+        <a class="list-group-item active" href="/register_item/">
             Agregar Item
 
         </a>
-        <a class="list-group-item" href="#">
+        <a class="list-group-item" href="/search_items/">
 
-            Category 2
-
-        </a>
-        <a class="list-group-item" href="#">
-
-            Category 3
+            Buscar Items
 
         </a>
     </div>
@@ -36,19 +31,32 @@
 
 </div>
 
-		<div class="col-md-9">
-		<ul><h1>Lista de Items</h1>
-			{% for item in items %}
-				<li>
-				<p>Item: <a href="{% url 'item_details' item.id %}">{{item.name}}</a><img src='{{MEDIA_URL}}{{item.imagen}}'></p>
-				</li>
-			{% empty %}
-				<li>Aún no hay items registradas</li>
-			{% endfor %}
-		</ul>
-		</div>
-		<a href="{{TEMPLATE_DIRS}}/dashboard">Volver</a>
-		</div>
+	<div class="col-md-7">
+        <p class="lead">
+            Resumen
+        </p>
+		<table class="table">
+        <tr>
+            <th>Nombre</th>
+            <th>Laboratorio</th>
+            <th>Stock</th>
+            <th>Cantidad Disponible</th>
+            <th>Acción</th>
+        </tr>
+        {% for item in items %}
+        <tr>
+            <td>{{ item.name }}</td>
+            <td>{{ item.location.name }}</td>
+            <td>{{ item.stock }}</td>
+            <td>{{ item.availables }}</td>
+            <td><a class="btn btn-primary" href="/item/{{item.id}}/">Detalle</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+		<a class="btn btn-default" href="/dashboard">Volver</a>
+</div>
+</div>
+</div>
 		
 </div>
 {% endblock %}

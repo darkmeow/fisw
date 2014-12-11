@@ -13,7 +13,14 @@
     </div>
     <div><h2>Estado</h2><p>{{loan.is_active}}</p>
     </div>
-    <a href="{{TEMPLATE_DIRS}}/list_loans">Volver</a>
+    <input id="backbutton" class="btn btn-default" type="button" value="Volver"/>
+    
+    <script>
+        $("#backbutton").click(goBack);
+        function goBack(){
+            window.history.back();
+        }
+    </script>
 </div>
 {% endblock %}
 

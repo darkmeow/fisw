@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% block titulo %} Buscar Item {% endblock %}
+
+{% block encabezado %}
+  <h1>Búsqueda de Item</h1>
+{% endblock %}
+
+{% block contenido %}
+  
+<div class="container">
+<div class="row">
+<div class="col-md-11">
+<h1>Búsqueda de Item</h1>
+<div id='filter_selector' class="panel">
+    <label>Nombre</label>
+    <input id="name" type="text">
+    <label>Categoría</label>
+    <select id="item_type">
+        <option value="all">Todas</option>
+        <option value="Instrument">Instrumento</option>
+        <option value="Material">Material</option>
+        <option value="Tool">Herrmaienta</option>
+        <option value="Item">Item</option>
+    </select>
+    <label>Laboratorio</label>
+    <select id="location">
+        <option value="all">Todas</option>
+        {% for location in locations %}
+            <option value="{{location.id}}">{{location.name}}</option>
+        {% endfor %}
+    </select>
+    <label>Disponibles</label>
+    <input type="checkbox" id="available" value="available"/>
+   <input class="btn btn-primary" type="button" id="submit" value="Buscar">
+   <input id="backbutton" class="btn btn-default" type="button" value="Volver"/>
+</div>
+<div class="panel panel-default">
+<table class="table" id="item_table">
+    <tr>
+        <th>Item</th>
+        
+        <th>Categoría</th>
+        
+        <th>Stock</th>
+        
+        <th>Disponibles</th>
+    </tr>
+</table>
+
+</div>
+    <script>
+     $("#backbutton").click(goBack);
+        function goBack(){
+            window.history.back();
+        }
+        $('#submit').click(finditems);
+        
+        function finditems(){
+            var table = document.getElementById("item_table");
+            $('#item_table tr').slice(1).remove();
+            var name = $("#name").val();
+            var item_type = $("#item_type").val();
+            var location = $("#location").val();
+            var available = $("#available").is(":checked");
+            $.ajax({
+               data : 'name='+name+'&item_type='+item_type+'&location='+location+'&available='+available,
+               url : '/search_item_ajax',
+               type : 'get',
+               success: function(data){
+                   $.each(data, function(index, record){
+                        var row = $("<tr />");
+                        var linked_name = "<a href='/item/"+record.pk+"'>"+record.name+"</a>"
+                        $("<td />").html(linked_name).appendTo(row);
+                        $("<td />").text(record.item_type).appendTo(row);
+                        $("<td />").text(record.stock).appendTo(row);
+                        $("<td />").text(record.availables).appendTo(row);
+                        row.appendTo('#item_table');
+                   });
+               }
+            });
+        }
+    </script>
+    
+</div>
+</div>
+</div>
+{% endblock %}

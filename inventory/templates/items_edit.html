@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block titulo %} Editar Item {% endblock %}
+
+{% block encabezado %}
+  <h1>Editar Item</h1>
+{% endblock %}
+
+{% block contenido %}
+  
+<div class="container">
+<div class="row">
+<div class="col-md-3">
+<h1>Agregar Item</h1>
+<form action="/edit_item/{{item.id}}/" method="post">
+    {% csrf_token %}
+    {{ form.as_ul }}
+    <input class="btn btn-primary" type="submit" value="Submit" />
+    <input id="backbutton" class="btn btn-default" type="button" value="Volver"/>
+</form>
+</div>
+</div>
+</div>
+<script>
+  $("#backbutton").click(goBack);
+    function goBack(){
+      window.history.back();
+    }
+</script>
+{% endblock %}

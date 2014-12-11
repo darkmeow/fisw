@@ -1,0 +1,169 @@
+{% load bootstrap3 %}
+<!DOCTYPE html>
+<html lang='es'>
+<head>
+
+  <meta charset='utf-8'>
+  <!--<title>Sistema de Inventario WCG - {% block titulo %}{% endblock %}</title> -->
+  <link rel='stylesheet' href='{{STATIC_URL}}css/base.css'>
+  <!-- <link rel='shortcut icon' href='{{STATIC_URL}}img/icono.png'> -->
+  <!--{% block style_css %}{% endblock %} -->
+  <!--  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
+  <script src='{{STATIC_URL}}js/jquery-1.11.1.min.js'></script>
+  {% bootstrap_css %}
+  {% bootstrap_javascript %}
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <!--<script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>-->
+
+ <!-- se usa para los tab --> 
+ <!-- <script src='{{STATIC_URL}}js/demo.js'></script> -->
+  <script type="text/javascript">
+$(document).ready(function(){
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function(e){
+        var activeTab = $(e.target).text(); // Get the name of active tab
+        var previousTab = $(e.relatedTarget).text(); // Get the name of previous tab
+        $(".active-tab span").html(activeTab);
+        $(".previous-tab span").html(previousTab);
+    });
+});
+</script>    
+</style></head>
+    <body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0">
+        <center>
+            <table align="center" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable">
+                <tr>
+                    <td align="center" valign="top" id="bodyCell">
+                        <!-- BEGIN TEMPLATE // -->
+                        <table border="0" cellpadding="0" cellspacing="0" width="600" id="templateContainer">
+                            <tr>
+                                <td align="center" valign="top">
+                                    <!-- BEGIN PREHEADER // -->
+                                    <table border="0" cellpadding="0" cellspacing="0" width="600" id="templatePreheader">
+                                        <tr>
+                                        	<td valign="top" class="preheaderContainer" style="padding-top:9px;"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock">
+    <tbody class="mcnTextBlockOuter">
+        <tr>
+            <td valign="top" class="mcnTextBlockInner"></td>
+                
+      
+                                        </tr>
+                                    </table>
+                                    <!-- // END PREHEADER -->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center" valign="top">
+                                    <!-- BEGIN HEADER // -->
+                                    <table border="0" cellpadding="0" cellspacing="0" width="600" id="templateHeader">
+                                        <tr>
+                                            <td valign="top" class="headerContainer"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnImageBlock">
+    <tbody>
+           <tr>
+           	<td><img src='{{STATIC_URL}}img/logo3.png' height="300" width="800"></td>
+           </tr>
+                    </tbody></table>
+                </td>
+            </tr>
+    </tbody>
+</table></td>
+                                        </tr>
+                                    </table>
+                                    <!-- // END HEADER -->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center" valign="top">
+                                    <!-- BEGIN BODY // -->
+                                    <table border="0" cellpadding="0" cellspacing="0" width="600" id="templateBody">
+                                        <tr>
+                                            <td valign="top" class="bodyContainer"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock">
+    <tbody class="mcnTextBlockOuter">
+        <tr>
+            <td valign="top" class="mcnTextBlockInner">
+                
+                <table align="left" border="0" cellpadding="0" cellspacing="0" width="600" class="mcnTextContentContainer">
+                    <tbody><tr>
+                        
+                        <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
+                        
+                            <h1>Informe Mensual</h1>
+
+{% block contenido %}{% endblock %}
+
+                        </td>
+                    </tr>
+                </tbody></table>
+                
+            </td>
+        </tr>
+    </tbody>
+</table></td>
+                                        </tr>
+                                    </table>
+                                    <!-- // END BODY -->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center" valign="top">
+                                    <!-- BEGIN COLUMNS // -->
+                                    <table border="0" cellpadding="0" cellspacing="0" width="600" id="templateColumns">
+                                        <tr>
+                                            <td align="left" valign="top" class="columnsContainer" width="50%">
+                                                <table border="0" cellpadding="0" cellspacing="0" width="100%" class="templateColumn">
+                                                    <tr>
+                                                        <td valign="top" class="leftColumnContainer"></td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                            <td align="left" valign="top" class="columnsContainer" width="50%">
+                                                <table border="0" cellpadding="0" cellspacing="0" width="100%" class="templateColumn">
+                                                    <tr>
+                                                        <td valign="top" class="rightColumnContainer"></td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <!-- // END COLUMNS -->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center" valign="top">
+                                    <!-- BEGIN FOOTER // -->
+                                    <table border="0" cellpadding="0" cellspacing="0" width="600" id="templateFooter">
+                                        <tr>
+                                            <td valign="top" class="footerContainer" style="padding-bottom:9px;"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock">
+    <tbody class="mcnTextBlockOuter">
+        <tr>
+            <td valign="top" class="mcnTextBlockInner">
+                
+                <table align="left" border="0" cellpadding="0" cellspacing="0" width="600" class="mcnTextContentContainer">
+                    <tbody><tr>
+                        
+                        <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
+                        
+                            <em>Copyright © 2014 INVSYS, All rights reserved.</em>
+                        </td>
+                    </tr>
+                </tbody></table>
+                
+            </td>
+        </tr>
+    </tbody>
+</table></td>
+                                        </tr>
+                                    </table>
+                                    <!-- // END FOOTER -->
+                                </td>
+                            </tr>
+                        </table>
+                        <!-- // END TEMPLATE -->
+                    </td>
+                </tr>
+            </table>
+        </center>
+    </body>
+</html>

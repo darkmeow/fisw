@@ -37,20 +37,31 @@
     {% endif %}
 
 </div>
-
-		<div class="col-md-9">
-		<ul><h1>Lista de Préstamos</h1>
-			{% for loan in loans %}
-				<li>
-					<p>Item Prestado: <a href="{% url 'loan_details' loan.id %}">{{loan.item}}</a><img src='{{MEDIA_URL}}{{loan.imagen}}'></p>
-				</li>
-			{% empty %}
-				<li>Aún no hay préstamos registradas</li>
-			{% endfor %}
-		</ul>
-		</div>
-		<a href="{{TEMPLATE_DIRS}}/dashboard">Volver</a>
-		</div>
+<div class="col-md-7">
+        <p class="lead">
+            Resumen
+        </p>
+		<table class="table">
+        <tr>
+            <th>Item</th>
+            <th>Cliente</th>
+            <th>Fecha Pedido</th>
+            <th>Fecha Retorno</th>
+            <th>Acción</th>
+        </tr>
+        {% for loan in loans %}
+        <tr>
+            <td>{{ loan.item.name }}</td>
+            <td>{{ loan.client.user.first_name}} {{ loan.client.user.last_name }}</td>
+            <td>{{ loan.loan_date }}</td>
+            <td>{{ loan.return_date }}</td>
+            <td><a class="btn btn-primary" href="/loan/{{loan.id}}/">Detalle</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+		<a class="btn btn-default" href="/dashboard">Volver</a>
+</div>
+</div>
 		
 </div>
 	

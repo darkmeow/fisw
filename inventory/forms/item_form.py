@@ -5,5 +5,5 @@ from django.forms import ModelForm, DateInput
 class ItemForm(ModelForm):
     class Meta:
         model = Item
-        fields = '__all__'
+        fields = ['id','item_type', 'name', 'photo', 'location', 'purchase_date', 'stock', 'description']
         widgets = {'purchase_date': DateInput(attrs={'type':'date'})}

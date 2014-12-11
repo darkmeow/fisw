@@ -40,28 +40,21 @@ class Migration(migrations.Migration):
                 ('description', models.CharField(max_length=100)),
                 ('purchase_date', models.DateTimeField()),
                 ('count', models.IntegerField(default=1)),
+                ('item_type', models.CharField(default=b'Item', max_length=10, choices=[(b'Item', b'Item'), (b'Instrument', b'Instrument'), (b'Material', b'Material'), (b'Tool', b'Tool')])),
             ],
             options={
             },
             bases=(models.Model,),
         ),
         migrations.CreateModel(
-            name='Instrument',
-            fields=[
-                ('item_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='inventory.Item')),
-            ],
-            options={
-            },
-            bases=('inventory.item',),
-        ),
-        migrations.CreateModel(
             name='Loan',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('loan_date', models.DateTimeField(auto_now=True)),
-                ('return_date', models.DateTimeField()),
+                ('return_date', models.DateTimeField(null=True, blank=True)),
                 ('is_active', models.BooleanField(default=True)),
                 ('client', models.ForeignKey(to='inventory.Client')),
+                ('item', models.ForeignKey(to='inventory.Item')),
             ],
             options={
             },
@@ -78,15 +71,6 @@ class Migration(migrations.Migration):
             options={
             },
             bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name='Material',
-            fields=[
-                ('item_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='inventory.Item')),
-            ],
-            options={
-            },
-            bases=('inventory.item',),
         ),
         migrations.CreateModel(
             name='Membership',
@@ -115,25 +99,10 @@ class Migration(migrations.Migration):
             },
             bases=(models.Model,),
         ),
-        migrations.CreateModel(
-            name='Tool',
-            fields=[
-                ('item_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='inventory.Item')),
-            ],
-            options={
-            },
-            bases=('inventory.item',),
-        ),
         migrations.AddField(
             model_name='membership',
             name='project',
             field=models.ForeignKey(to='inventory.Project'),
-            preserve_default=True,
-        ),
-        migrations.AddField(
-            model_name='loan',
-            name='item',
-            field=models.ForeignKey(to='inventory.Item'),
             preserve_default=True,
         ),
         migrations.AddField(
@@ -145,7 +114,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='client',
             name='loans',
-            field=models.ManyToManyField(to='inventory.Item', through='inventory.Loan'),
+            field=models.ManyToManyField(to='inventory.Item', through='inventory.Loan', blank=True),
             preserve_default=True,
         ),
         migrations.AddField(

@@ -9,35 +9,68 @@
   
 <div class="container">
 <div class="row">
-<div class="col-md-3">
+<div class="col-md-7">
 <h1>Devolución de Item</h1>
-<table>
-    <tr>
-        <th>Usuarios</th>
-        ...
-        <th>Préstamos</th>
-    </tr>
-</table>
-
-    <select>
-        <option>Elige un Usuario</option>
+<div id="filter_selector" class="panel panel-defualt">
+    <label>Usuario</label>
+    <select id="id_client">
+        <option value="all">Todos</option>
         {% for client in clients %}
             <option value="{{client.id}}">{{client.user.first_name|capfirst}} {{client.user.last_name|capfirst}}</option>
         {% endfor %}
     </select>
+    <label>Proyecto</label>
+    <select id="id_project">
+        <option value="all">Todos</option>
+        {% for project in projects %}
+            <option value="{{project.id}}">{{project.name}}</option>
+        {% endfor %}
+    </select>
+    <input class="btn btn-primary" type="button" id="submit" value="Buscar">
+</div>
+
+<table class="table" id="loan_table">
+    <tr>
+        <th>Usuarios</th>
+        <th>Item</th>
+        <th>Fecha</th>
+        <th>Acción</th>
+    </tr>
+</table>
+<input id="backbutton" class="btn btn-default" type="button" value="Volver"/>
     
-    <script>
-        $('select').on('change', findloans);
-        
-        function findloans(){
-            var id = $(this).val();
-            $.ajax({
-               data : {'id':id},
-               url : '/loan_cancel_list_ajax',
-               type : 'get'
-            });
+<script>
+     $("#backbutton").click(goBack);
+        function goBack(){
+            window.history.back();
         }
-    </script>
+        
+    $('#submit').click(findloans);
+    
+    function findloans(){
+        var table = document.getElementById("loan_table");
+        $('#loan_table tr').slice(1).remove();
+        var client = $("#id_client").val();
+        var project = $("#id_project").val();
+        $.ajax({
+           data : 'client='+client+'&project='+project,
+           url : '/loan_cancel_list_ajax',
+           type : 'get',
+           success: function(data){
+               $.each(data, function(index, record){
+                    var row = $("<tr />");
+                    var linked_name = "<a class='btn btn-primary' href='/loan/"+record.pk+"'>Detalle</a>";
+                    linked_name = linked_name + "  <a class='btn btn-danger' href='/return_loan/"+record.pk+"'>Cancelar</a>";
+                    $("<td />").text(record.client).appendTo(row);
+                    $("<td />").text(record.item).appendTo(row);
+                    $("<td />").text(record.date).appendTo(row);
+                    $("<td />").html(linked_name).appendTo(row);
+                    row.appendTo('#loan_table');
+               });
+           }
+        });
+    }
+</script>
     
 </div>
 </div>

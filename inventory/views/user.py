@@ -1,5 +1,5 @@
 from __future__ import unicode_literals
-from inventory.models import Administrator, Client
+from inventory.models import Administrator, Client, Loan
 from django.http import HttpResponseRedirect
 # -*- coding: utf-8 -*-
 from django.shortcuts import render_to_response
@@ -28,9 +28,12 @@ def wcg_login(request):
 def dashboard(request):
 	if Administrator.objects.filter( user = request.user).exists():
 		print Administrator.objects.filter( user = request.user)
-		return render_to_response('dashboard_admin.html', context_instance=RequestContext(request))
+		loans = Loan.objects.all().order_by('-loan_date')[:10]
+		active_loans = Loan.objects.filter(is_active=True).order_by('-loan_date')[:10]
+		return render_to_response('dashboard_admin.html',{"loans":loans, "active_loans":active_loans}, context_instance=RequestContext(request))
 	elif Client.objects.filter(user = request.user).exists():
-		return render_to_response('dashboard_client.html', context_instance=RequestContext(request))
+		active_loans = Loan.objects.filter(client__user = request.user, is_active=True).order_by('-loan_date')
+		return render_to_response('dashboard_client.html', { "active_loans":active_loans}, context_instance=RequestContext(request))
 	else:
 		return HttpResponseRedirect('/login')
 

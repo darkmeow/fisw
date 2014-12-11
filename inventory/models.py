@@ -20,11 +20,19 @@ class Location(models.Model):
 
 class Item(models.Model):
 	'''Model for the item's inventory '''
+	ITEM_TYPE_CHOICES = (
+		('Item', 'Item'),
+		('Instrument', 'Instrument'),
+		('Material', 'Material'),
+		('Tool', 'Tool')
+	)
 	location = models.ForeignKey(Location)
 	name = models.CharField(max_length=100)
 	description = models.CharField(max_length=100)
-	purchase_date = models.DateTimeField()
-	count = models.IntegerField(default=1)
+	purchase_date = models.DateField()
+	stock = models.IntegerField(default=1)
+	item_type = models.CharField(max_length=10, choices=ITEM_TYPE_CHOICES, default='Item')
+	photo = models.ImageField(upload_to="item_photo", blank=True, null=True)
 	def __unicode__(self):
 		return u"{0}".format(self.name)
 
@@ -61,19 +69,7 @@ class Membership(models.Model):
 	project = models.ForeignKey(Project)
 	date_joined = models.DateField()
 	def __unicode__(self):
-		return u"%s en %s".format(self.client, self.project)
-
-class Instrument(Item):
-	'''Model for the Instruments '''
-	pass
-
-class Material(Item):
-	'''Model for the Instruments '''
-	pass
-	
-class Tool(Item):
-	'''Model for the Instruments '''
-	pass
+		return u"{0} en {1}".format(self.client, self.project)
 
 class Loan(models.Model):
 	'''Model for the user's loans.
@@ -83,14 +79,17 @@ class Loan(models.Model):
 	'''
 	client = models.ForeignKey(Client)
 	item = models.ForeignKey(Item)
-	loan_date = models.DateTimeField(auto_now = True)
+	loan_date = models.DateTimeField()
 	return_date = models.DateTimeField(blank=True, null=True)
 	is_active = models.BooleanField(default=True)
 	def cancel(self):
 		self.is_active = False
-		return_date = timezone.now()
+		self.return_date = timezone.now()
 		self.save()
 		return
+	def set_date(self, date):
+		self.loan_date = date
+		self.save()
 	def isActive(self):
 		return self.is_active
 	def __unicode__(self):

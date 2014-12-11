@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 MEDIA_ROOT = os.path.join(BASE_DIR,'images')
+MEDIA_URL = "/media/"
 
 
 # Quick-start development settings - unsuitable for production
@@ -44,9 +45,11 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'inventory',
-    
-    
+    'djrill',
 )
+MANDRILL_API_KEY = "RKjkiGRENJq6GODooH0oXA"
+EMAIL_BACKEND = "djrill.mail.backends.djrill.DjrillBackend"
+
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',

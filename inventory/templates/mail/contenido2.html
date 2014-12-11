@@ -1,0 +1,60 @@
+{% load bootstrap3 %}
+<html>
+<header>
+  <script src='/static/js/jquery-1.11.1.min.js'></script>
+  {% bootstrap_css %}
+  {% bootstrap_javascript %}
+</header>
+<body>    
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading"><h1>Resumen Mensual Inventario WCG</h1></div>
+  
+  <div class="panel-body">
+<div class=container>
+    <h2>Últimos Préstamos</h2>
+    <table class="table">
+        <tr>
+            <th>Item</th>
+            <th>Cliente</th>
+            <th>Fecha Pedido</th>
+            <th>Fecha Retorno</th>
+        </tr>
+        {% for loan in loans %}
+        <tr>
+            <td>{{ loan.item.name }}</td>
+            <td>{{ loan.client.user.first_name}} {{ loan.client.user.last_name }}</td>
+            <td>{{ loan.loan_date }}</td>
+            <td>{{ loan.return_date }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <h2>Préstamos Pendientes</h2>
+    <table class="table">
+        <tr>
+            <th>Item</th>
+            <th>Cliente</th>
+            <th>Fecha Pedido</th>
+            <th>Fecha Retorno</th>
+        </tr>
+        {% for loan in active_loans %}
+            {% if loan.is_active %}
+            <tr>
+                <td>{{ loan.item.name }}</td>
+                <td>{{ loan.client.user.first_name}} {{ loan.client.user.last_name }}</td>
+                <td>{{ loan.loan_date }}</td>
+                <td>{{ loan.return_date }}</td>
+            </tr>
+            {% endif %}
+        {% empty %}
+            <tr>
+                <td>No existen Préstamos Pendientes</td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+</div>  
+</div>  
+</div>  
+</body>
+</html>
