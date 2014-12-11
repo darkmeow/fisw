@@ -4,7 +4,7 @@
 {% block contenido %}
 <div class=container>
     <h1>{{item.name|title}}</h1>
-    <img src="/media/{{item.photo}}" width="100px">
+    <img src="{{item.photo.url}}" width="100px">
     <div><h2>Lugar donde se encuentra</h2><p>{{item.location}}</p>
     </div>
     <div><h2>Descripción</h2> <p>{{item.description}}</p>

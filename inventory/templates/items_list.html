@@ -9,7 +9,7 @@
 <div class="container">
 <div class="row">
 <div class="col-md-3">
-{% if isAdmin %}
+
 			
     <p class="lead">
 
@@ -17,17 +17,19 @@
 
     </p>
     <div class="list-group">
+        {% if isAdmin %}
         <a class="list-group-item active" href="/register_item/">
             Agregar Item
 
         </a>
+        {% endif %}
         <a class="list-group-item" href="/search_items/">
 
             Buscar Items
 
         </a>
     </div>
-    {% endif %}
+    
 
 </div>
 
