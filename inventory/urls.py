@@ -27,5 +27,5 @@ urlpatterns = patterns('',
     url(r'^return_loan/(?P<id_loan>[0-9]+)/$'   ,'inventory.views.loans.return_loan'),
     url(r'^loan_cancel_list/$'                  ,'inventory.views.loans.loan_cancel_list'),
     url(r'^loan_cancel_list_ajax'               ,'inventory.views.loans.loan_cancel_list_ajax'),
-    url(r'^history_loan/$'                      ,'inventory.views.loans.loan_history'),
+    url(r'history_loan/$'                      ,'inventory.views.loans.loan_history'),
 )

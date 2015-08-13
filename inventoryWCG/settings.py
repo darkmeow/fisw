@@ -35,7 +35,6 @@ TEMPLATE_DIRS = (
 # Application definition
 
 INSTALLED_APPS = (
-    'django_admin_bootstrapped.bootstrap3',
     'django_admin_bootstrapped',
     'bootstrap3',
     'django.contrib.admin',
