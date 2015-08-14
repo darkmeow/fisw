@@ -22,7 +22,7 @@ def item(request, id_item):
 	
 @login_required
 def list_items(request):
-	items = Item.objects.all()
+	items = Item.objects.all().filter(items=id_item).order_by('item.purchase_date')
 	for item in items:
 		item.availables = item.stock - Loan.objects.filter(item=item, is_active =True).count() 
 	return render_to_response('items_list.html',{'items':items,'isAdmin':Administrator.objects.filter( user = request.user).exists(),}, context_instance=RequestContext(request))
@@ -96,11 +96,3 @@ def search_item_ajax(request):
 def set_if_not_none(mapping, key, value):
     if value != 'all' and value != "":
         mapping[key] = value
-<<<<<<< HEAD
-
-def handle_uploaded_file(f):
-    with open('images/item_photo/name.txt', 'wb+') as destination:
-        for chunk in f.chunks():
-            destination.write(chunk)
-=======
->>>>>>> 82729cbc05925b4c3414703d732ee8805fac9a10
