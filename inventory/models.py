@@ -33,13 +33,13 @@ class Item(models.Model):
 		('Tool', 'Tool')
 	)
 	location = models.ForeignKey(Location)
-	sublocation = models.ForeignKey(SubLocation)
+	sublocation = models.ForeignKey(SubLocation, null=True)
 	name = models.CharField(max_length=100)
 	description = models.CharField(max_length=100)
 	purchase_date = models.DateField()
 	stock = models.IntegerField(default=1)
 	item_type = models.CharField(max_length=10, choices=ITEM_TYPE_CHOICES, default='Item')
-	photo = models.ImageField(upload_to="item_photo", blank=True, null=True)
+	photo = models.ImageField(upload_to="item_photo/", default="item_photo/no_photo.jpg")
 	def __unicode__(self):
 		return u"{0}".format(self.name)
 

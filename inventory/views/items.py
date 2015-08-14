@@ -33,7 +33,6 @@ def register_item(request):
 	if request.method == 'POST':
 	    formset = ItemFormSet(request.POST,request.FILES)
 	    if formset.is_valid():
-	    		handle_uploaded_file(request.FILES['photo'])
 	        formset.save()
 	        return HttpResponseRedirect('/list_items')
 	else:
