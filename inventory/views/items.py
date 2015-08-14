@@ -96,8 +96,11 @@ def search_item_ajax(request):
 def set_if_not_none(mapping, key, value):
     if value != 'all' and value != "":
         mapping[key] = value
+<<<<<<< HEAD
 
 def handle_uploaded_file(f):
     with open('images/item_photo/name.txt', 'wb+') as destination:
         for chunk in f.chunks():
             destination.write(chunk)
+=======
+>>>>>>> 82729cbc05925b4c3414703d732ee8805fac9a10
