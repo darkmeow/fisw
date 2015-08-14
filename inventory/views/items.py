@@ -67,10 +67,12 @@ def search_item_ajax(request):
 	name = request.GET.get('name')
 	item_type = request.GET.get('item_type')
 	location = request.GET.get('location')
+	sublocation = request.GET.get('sublocation')
 	isAvailable = request.GET.get('available')
 	set_if_not_none(item_filter, 'name__contains', name)
 	set_if_not_none(item_filter, 'item_type', item_type)
 	set_if_not_none(item_filter, 'location', location)
+	set_if_not_none(item_filter, 'sublocation', sublocation)
 	items = []
 	if isAvailable == 'true':
 		for item in Item.objects.filter(**item_filter):

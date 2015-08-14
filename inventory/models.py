@@ -18,6 +18,12 @@ class Location(models.Model):
 	def __unicode__(self):
 		return u"{0}".format(self.name)
 
+class SubLocation(models.Model):
+	'''Model for the sublocation '''
+	name = models.CharField(max_length=100)
+	def __unicode__(self):
+		return u"{0}".format(self.name)
+
 class Item(models.Model):
 	'''Model for the item's inventory '''
 	ITEM_TYPE_CHOICES = (
@@ -27,6 +33,7 @@ class Item(models.Model):
 		('Tool', 'Tool')
 	)
 	location = models.ForeignKey(Location)
+	sublocation = models.ForeignKey(SubLocation)
 	name = models.CharField(max_length=100)
 	description = models.CharField(max_length=100)
 	purchase_date = models.DateField()

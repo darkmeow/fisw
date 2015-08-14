@@ -29,6 +29,13 @@
             <option value="{{location.id}}">{{location.name}}</option>
         {% endfor %}
     </select>
+    <label>Sección</label>
+    <select id="sublocation">
+        <option value="all">todas</option>
+        {% for sublocation in sublocations %}
+            <option value="{{sublocation.id}}">{{sublocation.name}}</option>
+        {% endfor %}
+    </select>
     <label>disponibles</label>
     <input type="checkbox" id="available" value="available"/>
    <input class="btn btn-primary" type="button" id="submit" value="buscar">
@@ -63,9 +70,10 @@
             var name = $("#name").val();
             var item_type = $("#item_type").val();
             var location = $("#location").val();
+            var sublocation = $("#sublocation").val();
             var available = $("#available").is(":checked");
             $.ajax({
-               data : 'name='+name+'&item_type='+item_type+'&location='+location+'&available='+available,
+               data : 'name='+name+'&item_type='+item_type+'&location='+location+'&available='+available+'sublocation='+sublocation,
                url : '/search_item_ajax',
                type : 'get',
                success: function(data){
