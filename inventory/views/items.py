@@ -31,8 +31,9 @@ def list_items(request):
 def register_item(request):
 	ItemFormSet = modelform_factory(Item, form=ItemForm)
 	if request.method == 'POST':
-	    formset = ItemFormSet(request.POST)
+	    formset = ItemFormSet(request.POST,request.FILES)
 	    if formset.is_valid():
+	    		handle_uploaded_file(request.FILES['photo'])
 	        formset.save()
 	        return HttpResponseRedirect('/list_items')
 	else:
@@ -84,6 +85,7 @@ def search_item_ajax(request):
 			'item_type'	: item.item_type,
 			'stock'		: item.stock,
 			'availables': item.stock - Loan.objects.filter(item=item, is_active =True).count(),
+			'sublocation': item.sublocation,
 			'pk'		: item.id
 			}
 		)

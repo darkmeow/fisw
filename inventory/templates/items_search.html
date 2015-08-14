@@ -19,20 +19,20 @@
         <option value="all">Todas</option>
         <option value="Instrument">Instrumento</option>
         <option value="Material">Material</option>
-        <option value="Tool">Herrmaienta</option>
+        <option value="Tool">Herramienta</option>
         <option value="Item">Item</option>
     </select>
-    <label>Laboratorio</label>
+    <label>Ubicación</label>
     <select id="location">
-        <option value="all">Todas</option>
+        <option value="all">todas</option>
         {% for location in locations %}
             <option value="{{location.id}}">{{location.name}}</option>
         {% endfor %}
     </select>
-    <label>Disponibles</label>
+    <label>disponibles</label>
     <input type="checkbox" id="available" value="available"/>
-   <input class="btn btn-primary" type="button" id="submit" value="Buscar">
-   <input id="backbutton" class="btn btn-default" type="button" value="Volver"/>
+   <input class="btn btn-primary" type="button" id="submit" value="buscar">
+   <input id="backbutton" class="btn btn-default" type="button" value="volver"/>
 </div>
 <div class="panel panel-default">
 <table class="table" id="item_table">
@@ -44,6 +44,8 @@
         <th>Stock</th>
         
         <th>Disponibles</th>
+
+        <th>Sección</th>
     </tr>
 </table>
 
@@ -74,6 +76,7 @@
                         $("<td />").text(record.item_type).appendTo(row);
                         $("<td />").text(record.stock).appendTo(row);
                         $("<td />").text(record.availables).appendTo(row);
+                        $("<td />").text(record.sublocation).appenTo(row);
                         row.appendTo('#item_table');
                    });
                }

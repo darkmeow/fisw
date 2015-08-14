@@ -40,7 +40,8 @@
 		<table class="table">
         <tr>
             <th>Nombre</th>
-            <th>Laboratorio</th>
+            <th>Ubicación</th>
+            <th>Sección</th>
             <th>Stock</th>
             <th>Cantidad Disponible</th>
             <th>Acción</th>
@@ -49,6 +50,7 @@
         <tr>
             <td>{{ item.name }}</td>
             <td>{{ item.location.name }}</td>
+            <td>{{ item.sublocation.name}}</td>
             <td>{{ item.stock }}</td>
             <td>{{ item.availables }}</td>
             <td><a class="btn btn-primary" href="/item/{{item.id}}/">Detalle</a></td>
