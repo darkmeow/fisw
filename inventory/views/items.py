@@ -33,7 +33,6 @@ def register_item(request):
 	if request.method == 'POST':
 	    formset = ItemFormSet(request.POST,request.FILES)
 	    if formset.is_valid():
-	    		handle_uploaded_file(request.FILES['photo'])
 	        formset.save()
 	        return HttpResponseRedirect('/list_items')
 	else:
@@ -97,3 +96,8 @@ def search_item_ajax(request):
 def set_if_not_none(mapping, key, value):
     if value != 'all' and value != "":
         mapping[key] = value
+
+def handle_uploaded_file(f):
+    with open('images/item_photo/name.txt', 'wb+') as destination:
+        for chunk in f.chunks():
+            destination.write(chunk)
