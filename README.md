@@ -2,5 +2,9 @@
 Sistema de Inventario WCG
 =========================
 
+branch develop:
+***recuperar funcion de busqueda!
+
+
 * Python: 2.7.8
 * Django: 1.7
