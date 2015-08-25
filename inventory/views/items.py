@@ -22,9 +22,7 @@ def item(request, id_item):
 	
 @login_required
 def list_items(request):
-	items = Item.objects.all().filter(items=id_item).order_by('item.purchase_date')
-	for item in items:
-		item.availables = item.stock - Loan.objects.filter(item=item, is_active =True).count() 
+	items = Item.objects.all()
 	return render_to_response('items_list.html',{'items':items,'isAdmin':Administrator.objects.filter( user = request.user).exists(),}, context_instance=RequestContext(request))
 
 @user_passes_test(lambda u: isAdmin(u), '/dashboard')
